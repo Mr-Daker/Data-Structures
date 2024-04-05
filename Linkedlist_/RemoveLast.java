@@ -1,16 +1,22 @@
 package Linkedlist_;
 
-public class AddFirst {
+public class RemoveLast {
     public static Node head = null;
 
-    public static Node AddNodeFirst(int data) {
-        Node node = new Node(data);
+    public static int removeLast() {
         if (head == null) {
-            return node;
+            System.out.println("Linked List is empty.");
+            return -1;
         } else {
-            node.next = head;
-            head = node;
-            return node;
+            Node temp = head;
+            Node prv = temp;
+            while (temp.next != null) {
+                prv = temp;
+                temp = temp.next;
+            }
+            int data = temp.data;
+            prv.next = null;
+            return data;
         }
     }
 
@@ -24,28 +30,15 @@ public class AddFirst {
     }
 
     public static void main(String[] args) {
-        Node ll = new Node(1);
-        head = ll;
+        head = new Node(1);
+        head.next = new Node(2);
+        head.next.next = new Node(3);
         print();
-        AddNodeFirst(2);
+        removeLast();
         print();
-        AddNodeFirst(3);
+        removeLast();
         print();
-        AddNodeFirst(4);
-        print();
-        AddNodeFirst(5);
-        print();
-        AddNodeFirst(6);
-        print();
-        AddNodeFirst(7);
-        print();
-        AddNodeFirst(8);
-        print();
-        AddNodeFirst(9);
-        print();
-
     }
-
 }
 
 class Node {

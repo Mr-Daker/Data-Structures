@@ -1,16 +1,19 @@
 package Linkedlist_;
 
-public class AddFirst {
+public class AddLast {
+
     public static Node head = null;
 
-    public static Node AddNodeFirst(int data) {
+    public static void addlast(int data) {
         Node node = new Node(data);
         if (head == null) {
-            return node;
-        } else {
-            node.next = head;
             head = node;
-            return node;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = node;
         }
     }
 
@@ -24,26 +27,12 @@ public class AddFirst {
     }
 
     public static void main(String[] args) {
-        Node ll = new Node(1);
-        head = ll;
+        addlast(1);
         print();
-        AddNodeFirst(2);
+        addlast(2);
         print();
-        AddNodeFirst(3);
+        addlast(3);
         print();
-        AddNodeFirst(4);
-        print();
-        AddNodeFirst(5);
-        print();
-        AddNodeFirst(6);
-        print();
-        AddNodeFirst(7);
-        print();
-        AddNodeFirst(8);
-        print();
-        AddNodeFirst(9);
-        print();
-
     }
 
 }
