@@ -1,6 +1,11 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class BFS {
+/**
+ * DFS
+ */
+public class DFS {
+
     static class Edge {
         int source, destination;
 
@@ -11,8 +16,7 @@ public class BFS {
 
     }
 
-    public static void createGraph(ArrayList<Edge> Graph[]) {
-
+    static void createGraph(ArrayList<Edge> Graph[]) {
         for (int i = 0; i < Graph.length; i++) {
             Graph[i] = new ArrayList<>();
         }
@@ -36,24 +40,17 @@ public class BFS {
 
     }
 
-    public static void bfs(ArrayList<Edge> Graph[], Boolean visited[], int start) {
-        Queue<Integer> q = new LinkedList<Integer>();
+    public static void dfs(ArrayList<Edge> Graph[], Boolean visited[], int start) {
 
-        q.add(start);
-        while (q.isEmpty() == false) {
-            int Current = q.remove();
-            if (!visited[Current]) {
-                System.out.println(Current);
-                visited[Current] = true;
-                for (int i = 0; i < Graph[Current].size(); i++) {
-
-                    System.out.print(Graph[Current].get(i).destination + " ");
-                    q.add(Graph[Current].get(i).destination);
-                }
-                System.out.println();
+        System.out.println(start);
+        visited[start] = true;
+        for (int i = 0; i < Graph[start].size(); i++) {
+            Edge e = Graph[start].get(i);
+            if (visited[e.destination] == false) {
+                dfs(Graph, visited, e.destination);
             }
-
         }
+
     }
 
     public static void main(String[] args) {
@@ -62,11 +59,7 @@ public class BFS {
         createGraph(Graph);
         Boolean visited[] = new Boolean[v];
         Arrays.fill(visited, false);
-
-        for (int i = 0; i < v; i++)
-            if (visited[i] == false)
-                bfs(Graph, visited, i);
-        // bfs(Graph, visited, 0);
+        dfs(Graph, visited, 0);
 
     }
 }

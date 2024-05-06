@@ -1,6 +1,7 @@
-import java.util.*;
+import java.util.*;;
 
-public class BFS {
+public class AllPathsFromSourceToTarget {
+
     static class Edge {
         int source, destination;
 
@@ -11,8 +12,7 @@ public class BFS {
 
     }
 
-    public static void createGraph(ArrayList<Edge> Graph[]) {
-
+    static void createGraph(ArrayList<Edge> Graph[]) {
         for (int i = 0; i < Graph.length; i++) {
             Graph[i] = new ArrayList<>();
         }
@@ -36,37 +36,34 @@ public class BFS {
 
     }
 
-    public static void bfs(ArrayList<Edge> Graph[], Boolean visited[], int start) {
-        Queue<Integer> q = new LinkedList<Integer>();
-
-        q.add(start);
-        while (q.isEmpty() == false) {
-            int Current = q.remove();
-            if (!visited[Current]) {
-                System.out.println(Current);
-                visited[Current] = true;
-                for (int i = 0; i < Graph[Current].size(); i++) {
-
-                    System.out.print(Graph[Current].get(i).destination + " ");
-                    q.add(Graph[Current].get(i).destination);
-                }
-                System.out.println();
-            }
-
+    // O(v*v)
+    static void allPathsFromSourceToTarget(ArrayList<Edge> Graph[], boolean visited[], int current, int target,
+            String path) {
+        if (current == target) {
+            System.out.println(path);
+            return;
         }
+
+        for (int i = 0; i < Graph[current].size(); i++) {
+            Edge e = Graph[current].get(i);
+            if (!visited[e.destination]) {
+                visited[e.destination] = true;
+                allPathsFromSourceToTarget(Graph, visited, e.destination, target, path + e.destination);
+                visited[e.destination] = false;
+            }
+        }
+
     }
 
     public static void main(String[] args) {
         int v = 7;
         ArrayList<Edge> Graph[] = new ArrayList[v];
         createGraph(Graph);
-        Boolean visited[] = new Boolean[v];
+        boolean visited[] = new boolean[v];
         Arrays.fill(visited, false);
-
-        for (int i = 0; i < v; i++)
-            if (visited[i] == false)
-                bfs(Graph, visited, i);
-        // bfs(Graph, visited, 0);
+        // if you will not write this then you will include source again
+        visited[0] = true;
+        allPathsFromSourceToTarget(Graph, visited, 0, 5, "0");
 
     }
 }
